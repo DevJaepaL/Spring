@@ -2,10 +2,10 @@
 ___
 
 웹 어플리케이션 활용 강의에서 공부한 내용을 올립니다.
-+ [1주차]()
++ 1주차
   + 개발 도구 준비 및 세팅
   + 스프링 부트 프로젝트 생성
-+ [2주차]()
++ 2주차
   + MariaDB 소개
   + `Spring Data JPA` 를 이용해 프로젝트 생성
 + [3주차](https://github.com/DevJaepaL/Spring/tree/master/3W-Study)
