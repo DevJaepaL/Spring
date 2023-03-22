@@ -1,5 +1,4 @@
-> 💡학교 강의를 토대로 복습한 내용입니다.
-내용이 깔끔하지 않을수 있으니 양해좀 해주세요.. 🙏
+<a href="https://velog.io/@jaepal/Spring-Boot-" target="_blank">원본 글 [Velog]</a>
 
 ![](https://velog.velcdn.com/images/jaepal/post/5688a900-c6ef-4715-94cb-422d8bbe6deb/image.png)
 
