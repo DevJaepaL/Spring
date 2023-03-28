@@ -10,8 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -111,5 +113,69 @@ public class MemoRepositoryTests {
         result.get().forEach(memo -> {
             System.out.println(memo);
         });
+    }
+
+    /** 쿼리문 테스트 메소드
+     *  내림차순으로 정렬하여 검색 */
+    @Test
+    public void testQueryMethods() {
+        List<Memo> list = memoRepository.findByMnoBetweenOrderByMnoDesc(70,80);
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }
+
+    /** 쿼리 메소드와 Pageable를 결합하여 목록 생성하여 특정 필드 값부터 원하는 값까지 출력해준다. */
+    @Test
+    public void testQueryMethodWithPageable() {
+        Pageable pageable = PageRequest.of(0,15, Sort.by("mno").descending());
+        Page<Memo> result = memoRepository.findByMnoBetween(10,35, pageable);
+        result.get().forEach(memo -> System.out.println(memo));
+    }
+
+    /** Transactional & Commit 어노테이션으로 Select 문 및
+     *   10보다 작은 값 컬럼 값을 삭제한다.
+     *   @Commit은 최종 결과를 커밋하기 위해 사용한다. */
+    @Commit
+    @Transactional
+    @Test
+    public void testDeleteQueryMethods() {
+    memoRepository.deleteMemoByMnoLessThan(10);
+    }
+
+    /** MemoRepository에서 @Query 어노테이션을 통해 만든
+     *  쿼리 메소드를 통해 내림차순으로 정렬해 출력 결과를 보여주는 메소드 */
+    @Test
+    public void testGetListDesc() {
+        List<Memo> list = memoRepository.getListDesc();
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }
+
+    @Test
+    public void testUpdateMemoText() {
+        int updateCnt = memoRepository.updateMemoText(29, "파라미터 바인딩을 이용해 29행 수정");
+    }
+
+    @Test
+    public void testUpdateMemoText2() {
+        Memo memo = new Memo();
+        memo.setMno(31);
+        memo.setMemoText("[31행 수정]파라미터 바인딩을 이용하여 Memo객체 참조 값을 param으로 사용");
+        int updateCnt = memoRepository.updateMemoText2(memo);
+    }
+
+    /** 파라미터 값보다 큰 컬럼들을 페이지의 크기(20)까지 출력해주는 테스트 쿼리 메소드 */
+    @Test
+    public void testGetListQuery() {
+        /* Pageable = 페이지를 만든다. 현재 페이지 = 0번 째 , Size = 10 , 오름차순으로 정렬.
+        * */
+        Pageable pageable = PageRequest.of(0,10
+                , Sort.by("mno").descending());
+        Page<Memo> result = memoRepository.getListWithQuery(30, pageable);
+        result.get().forEach(
+                memo -> System.out.println(memo)
+        );
     }
 }
