@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -51,7 +50,7 @@ public class MemoRepositoryTests {
     @Transactional
     @Test
     public void transactionTestSelect() {
-        int mno = 100;
+        int mno = 99;
         Memo memo = memoRepository.getOne(mno);
         System.out.println("==================================");
         /* SELECT 하려는 필드가 있는지 체크 후 출력. */
@@ -166,7 +165,7 @@ public class MemoRepositoryTests {
         int updateCnt = memoRepository.updateMemoText2(memo);
     }
 
-    /** 파라미터 값보다 큰 컬럼들을 페이지의 크기(20)까지 출력해주는 테스트 쿼리 메소드 */
+    /** 파라미터 값보다 큰 컬럼들을 페이지의 크기(10)까지 출력해주는 테스트 쿼리 메소드 */
     @Test
     public void testGetListQuery() {
         /* Pageable = 페이지를 만든다. 현재 페이지 = 0번 째 , Size = 10 , 오름차순으로 정렬.
@@ -177,5 +176,29 @@ public class MemoRepositoryTests {
         result.get().forEach(
                 memo -> System.out.println(memo)
         );
+    }
+
+    @Test
+    public void testGetListWithQueryObject() {
+        Pageable pageable = PageRequest.of(0,10,Sort.by("mno").ascending());
+        Page<Object[]> result = memoRepository.getListWithQueryObject(15,pageable);
+        result.get().forEach(
+                memo -> System.out.println(result)
+        );
+    }
+
+    @Test
+    public void nativeSQLTest() {
+        List<Object[]> list = memoRepository.getNativeResult();
+        for(Object[] obj : list) {
+            System.out.println(obj[0] + " :: " + obj[1]);
+        }
+    }
+
+    @Test
+    public void deleteColumn() {
+        for(int i = 50; i <= 300; i++) {
+            memoRepository.deleteById(i);
+        }
     }
 }
