@@ -34,8 +34,14 @@ public class GuestBookServiceTests {
 
         PageResultDTO<GuestBookDTO, GuestBook> resultDTO = service.getList(pageRequestDTO);
 
-        for(GuestBookDTO dto : resultDTO.getDtoList()) {
-            System.out.println(dto);
-        }
+        System.out.println("PREV : " + resultDTO.isPrev()); // 이전 페이지가 존재하는 지 여부
+        System.out.println("NEXT : " + resultDTO.isNext()); // 다음 페이지가 존재하는 지 여부
+        System.out.println("TOTAL : " + resultDTO.getTotalPage()); // 총 페이지 개수
+        System.out.println("----------------------------");
+//        for(GuestBookDTO guestBookDTO : resultDTO.getDtoList()) {
+//            System.out.println(guestBookDTO); // guestBook DTO의 Entity 가져와서 출력
+//        }
+        System.out.println("----------------------------");
+        System.out.println("한 개 페이지의 대한 개수 : " + resultDTO.getPageList());
     }
 }
