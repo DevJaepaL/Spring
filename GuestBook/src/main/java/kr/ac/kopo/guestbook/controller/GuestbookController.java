@@ -24,6 +24,7 @@ public class GuestbookController {
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
         log.info("페이지 요청 정보 : " + pageRequestDTO);
+        // 결과 데이터를 "result"라는 속성에 담아 화면에 전달하기 위한 Model
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 }
