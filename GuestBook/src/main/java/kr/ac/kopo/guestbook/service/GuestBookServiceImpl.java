@@ -32,7 +32,7 @@ public class GuestBookServiceImpl implements GuestBookService{
     // 페이지에 대한 DTO 결과를 얻어내는 메소드
     @Override
     public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("gNo").descending());
+        Pageable pageable = requestDTO.getPageable(Sort.by("gNo").ascending());
 
         Page<GuestBook> result = repository.findAll(pageable);
         Function<GuestBook, GuestBookDTO> fn = (entity -> entityToDto(entity)); // Entity To Dto 변환

@@ -1960,6 +1960,11 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+.form-group {
+  margin : 20px 20px;
+}
+
 .form-label {
   margin-bottom: 0.5rem;
 }
@@ -2844,6 +2849,7 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
+  margin-left: 15px;
   --bs-btn-color: #fff;
   --bs-btn-bg: #0d6efd;
   --bs-btn-border-color: #0d6efd;
