@@ -1,38 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/layout/basic :: setContent( ~{this::content} )}">
-  <th:block th:fragment="content">
-    <h1 class="mt-4">GuestBook 등록 페이지</h1>
-    <!-- 글 쓰기 Form -->
-    <form th:action="@{/guestbook/register}" th:method="post">
-      <div class="form-group">
-      <!-- 제목 입력하는 Part -->
-        <label>제목</label>
-        <input type="text"
-               class="form-control"
-               name="title"
-               placeholder="제목 입력">
-      </div>
-      <div></div>
-      <div class="form-group">
-        <label>내용</label>
-        <textarea class="form-control"
-                  name="content"
-                  rows= "5">
-        </textarea>
-      </div>
-      <div></div>
-      <div class="form-group">
-        <label>작성자</label>
-        <input  type="text"
-                class="form-control"
-                name="writer"
-                placeholder="이름">
-      </div>
-      <div></div>
-      <button type="submit"
-              class="btn btn-primary">Submit</button>
-    </form>
+  <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+      <h1 class="mt-4">GuestBook Register Page</h1>
+      <form th:action="@{/guestbook/register}" method="post">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" name="title" placeholder="Enter Title">
+        </div>
+        <div class="form-group">
+          <label>Content</label>
+          <textarea class="form-control" rows="5" name="content"></textarea>
+        </div>
+        <div class="form-group">
+          <label>writer</label>
+          <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </th:block>
   </th:block>
-</th:block>
 </html>

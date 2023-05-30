@@ -1,7 +1,11 @@
-package kr.ac.kopo.guestbook.Entity;
+package kr.ac.kopo.guestbook.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -9,28 +13,26 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class GuestBook extends BaseEntity{
+public class Guestbook extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long gNo; // Guest Number
+    private Long gno;
 
     @Column(length = 100, nullable = false)
-    private String title; // 제목
+    private String title;
 
     @Column(length = 1500, nullable = false)
-    private String content; // 내용
+    private String content;
 
     @Column(length = 50, nullable = false)
-    private String writer; // 글쓴이
+    private String writer;
 
-    /** 제목 수정 Method */
-    public void changeTitle(String edit_TitleName) {
-        this.title = edit_TitleName;
+    public void changeTitle(String title){
+        this.title = title;
     }
 
-    /** 내용 수정 Method */
-    public void changeContent(String edit_content) {
-        this.content = edit_content;
+    public void changeContent(String content){
+        this.content = content;
     }
 }

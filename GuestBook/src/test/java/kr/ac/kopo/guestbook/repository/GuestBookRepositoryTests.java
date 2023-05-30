@@ -2,9 +2,8 @@ package kr.ac.kopo.guestbook.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import kr.ac.kopo.guestbook.Entity.GuestBook;
-import kr.ac.kopo.guestbook.Entity.QGuestBook;
-import kr.ac.kopo.guestbook.Repository.GuestBookRepository;
+import kr.ac.kopo.guestbook.entity.Guestbook;
+import kr.ac.kopo.guestbook.entity.QGuestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,69 +16,69 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class GuestBookRepositoryTests {
-
+public class GuestbookRepositoryTests {
     @Autowired
-    private GuestBookRepository guestBookRepository;
+    private GuestbookRepository guestbookRepository;
 
+//    Querydsl을 사용해서 특정검색어를 갖는 행들만 선택
+//    단일검색어 테스트
     @Test
-    public void insertDummies() {
-        IntStream.rangeClosed(1,300).forEach(i -> {
-            GuestBook guestBook = GuestBook.builder()
-                    .title("제목 : " + i)
-                    .content("내용 : " + i)
-                    .writer("유저 : " + (i % 10))
-                    .build();
-            System.out.println(guestBookRepository.save(guestBook));
-        });
-    }
-
-    /** 업데이트 테스트 */
-    @Test
-    public void updateTest() {
-        Optional<GuestBook> result = guestBookRepository.findById(300L); // 번호가 300인 ID 탐색
-        if(result.isPresent()) {
-            GuestBook guestBook = result.get(); // Entity 접근
-            guestBook.changeTitle("타이틀 변경 메소드 테스트");
-            guestBook.changeContent("콘텐츠(내용) 변경 메소드 테스트");
-
-            guestBookRepository.save(guestBook); // Entity 업데이트 반영 내용 저장
-        }
-    }
-    /** 단일 항목 검색 테스트 */
-    @Test
-    public void testQuery() {
-        // 10개의 데이터에 대한 페이징 처리
-        Pageable pageable = PageRequest.of(0,10, Sort.by("gNo").descending());
-        QGuestBook qGuestBook = QGuestBook.guestBook;
-        String keyword = "1";
-
+    public void testQuery1(){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+        String keyword = "7";
         BooleanBuilder builder = new BooleanBuilder();
-        BooleanExpression expression = qGuestBook.title.contains(keyword);
+        BooleanExpression expression = qGuestbook.title.contains(keyword);
         builder.and(expression);
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
 
-        Page<GuestBook> result = guestBookRepository.findAll(builder, pageable);
-        result.stream().forEach(guestBook -> {
-            System.out.println(guestBook);
+    //    Querydsl을 사용해서 특정검색어를 갖는 행들만 선택
+    //    다중검색어 테스트
+    @Test
+    public void testQuery2(){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").ascending());
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+        String keyword = "7";
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanExpression expTitle = qGuestbook.title.contains(keyword);
+        BooleanExpression expWriter = qGuestbook.writer.contains(keyword);
+        BooleanExpression expAll = expTitle.or(expWriter);
+        builder.and(expAll);
+        builder.and(qGuestbook.gno.gt(50L));
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
+
+
+
+    @Test
+    public void insertDummies(){
+        IntStream.rangeClosed(1, 300).forEach(i ->{
+            Guestbook guestbook = Guestbook.builder()
+                    .title("Title..." + i)
+                    .content("Content..."+ i)
+                    .writer("user" + (i % 10))
+                    .build();
+            System.out.println(guestbookRepository.save(guestbook));
         });
     }
 
     @Test
-    /** 다중 항목 검색 테스트 */
-    public void testQuery2() {
-        Pageable pageable = PageRequest.of(0,10,Sort.by("gNo").descending());
-        QGuestBook qGuestBook = QGuestBook.guestBook;
-        String keyword = "1";
-        BooleanBuilder builder = new BooleanBuilder();
-        BooleanExpression exTitle = qGuestBook.title.contains(keyword);
-        BooleanExpression exContent = qGuestBook.content.contains(keyword);
-        BooleanExpression exAll = exTitle.or(exContent);
-        builder.and(exAll); // Expression 결합
-        builder.and(qGuestBook.gNo.gt(0L)); // 이 값을 지닌 값 검색
+    public void updateTest(){
+        Optional<Guestbook> result = guestbookRepository.findById(300L);
 
-        Page<GuestBook> result = guestBookRepository.findAll(builder, pageable);
-        result.stream().forEach(guestBook -> {
-            System.out.println(guestBook);
-        });
+        if(result.isPresent()){
+            Guestbook guestbook = result.get();
+            guestbook.changeTitle("Changed Title...");
+            guestbook.changeContent("Changed Content...");
+            guestbookRepository.save(guestbook);
+        }
+
     }
 }

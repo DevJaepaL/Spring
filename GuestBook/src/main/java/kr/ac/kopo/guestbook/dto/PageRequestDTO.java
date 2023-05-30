@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-
 @Builder
 @AllArgsConstructor
 @Data
@@ -15,13 +14,13 @@ public class PageRequestDTO {
     private int page;
     private int size;
 
-    public PageRequestDTO() {
-        this.page = 1;
-        this.size = 10;
+    public PageRequestDTO(){
+        page = 1;
+        size = 10;
     }
 
-    // 페이지를 가져오는 메소드, 오름차순으로 정렬된 결과를 가져온다.
-    public Pageable getPageable(Sort sort) {
-        return PageRequest.of(page - 1, size, sort.ascending());
+    public Pageable getPageable(Sort sort){
+
+        return PageRequest.of(page-1, size, sort);
     }
 }

@@ -1,10 +1,10 @@
 package kr.ac.kopo.guestbook.service;
 
-import kr.ac.kopo.guestbook.Entity.GuestBook;
-import kr.ac.kopo.guestbook.Repository.GuestBookRepository;
-import kr.ac.kopo.guestbook.dto.GuestBookDTO;
+import kr.ac.kopo.guestbook.dto.GuestbookDTO;
 import kr.ac.kopo.guestbook.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook.dto.PageResultDTO;
+import kr.ac.kopo.guestbook.entity.Guestbook;
+import kr.ac.kopo.guestbook.repository.GuestbookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -15,55 +15,51 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.function.Function;
 
-
-// 빈 처리
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class GuestBookServiceImpl implements GuestBookService{
-    private final GuestBookRepository repository;
+public class GuestbookServiceImpl implements GuestbookService{
+
+    private final GuestbookRepository repository;
     @Override
-    public Long register(GuestBookDTO dto) {
-        GuestBook entity = dtoToEntity(dto);
+    public Long register(GuestbookDTO dto) {
+        Guestbook entity = dtoToEntity(dto);
         log.info(entity);
         repository.save(entity);
-        return entity.getGNo();
+
+        return entity.getGno();
     }
 
-    // 페이지에 대한 DTO 결과를 얻어내는 메소드
     @Override
-    public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("gNo").ascending());
-
-        Page<GuestBook> result = repository.findAll(pageable);
-        Function<GuestBook, GuestBookDTO> fn = (entity -> entityToDto(entity)); // Entity To Dto 변환
+    public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
+        Page<Guestbook> result = repository.findAll(pageable);
+        Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
 
         return new PageResultDTO<>(result, fn);
     }
 
-    // DTO로부터 전달받은 오버라이딩 메소드
     @Override
-    public GuestBookDTO read(Long gNo) {
-        Optional<GuestBook> result = repository.findById(gNo);
-        return result.isPresent() ? entityToDto(result.get()) : null;
+    public GuestbookDTO read(Long gno) {
+        Optional<Guestbook> result = repository.findById(gno);
+        return result.isPresent()? entityToDto(result.get()): null;
     }
 
     @Override
-    public void remove(Long gNo) {
-        repository.deleteById(gNo);
-    }
-
-    @Override
-    public void modify(GuestBookDTO dto) {
-        Optional<GuestBook> result = repository.findById(dto.getGNo());
-
-        if(result.isPresent()) {
-            GuestBook entity = result.get();
-
+    public void modify(GuestbookDTO dto) {
+        Optional<Guestbook> result = repository.findById(dto.getGno());
+        if(result.isPresent()){
+            Guestbook entity = result.get();
             entity.changeTitle(dto.getTitle());
             entity.changeContent(dto.getContent());
-
             repository.save(entity);
         }
     }
+
+    @Override
+    public void remove(Long gno) {
+        repository.deleteById(gno);
+    }
+
+
 }
