@@ -10,19 +10,23 @@ public interface GuestBookService {
     Long register(GuestBookDTO dto);
     PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO);
 
+    GuestBookDTO read(Long gNo);
+
+    void remove(Long gNo);
+    void modify(GuestBookDTO dto);
+
     // DTO 를 Entity로 변환해야 한다.
     default GuestBook dtoToEntity(GuestBookDTO dto) {
-        GuestBook entity = GuestBook.builder()
+        return GuestBook.builder()
                 .gNo(dto.getGNo())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(dto.getWriter())
                 .build();
-        return entity;
     }
 
     default GuestBookDTO entityToDto(GuestBook entity) {
-        GuestBookDTO dto = GuestBookDTO.builder()
+        return GuestBookDTO.builder()
                 .gNo(entity.getGNo())
                 .title(entity.getTitle())
                 .content(entity.getContent())
@@ -30,7 +34,5 @@ public interface GuestBookService {
                 .regDate(entity.getRegDate())
                 .modDate(entity.getRegDate())
                 .build();
-
-        return dto;
     }
 }
