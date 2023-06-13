@@ -3,18 +3,18 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-      <h1 class="mt-4">Guest List Page
+      <h1 class="mt-4">게스트 글 목록
         <a th:href="@{/guestbook/register}">
-          <button type="button" class="btn btn-outline-primary">REGISTER</button>
+          <button type="button" class="btn btn-outline-primary">글 등록</button>
         </a>
       </h1>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">number</th>
-            <th scope="col">Title</th>
-            <th scope="col">Writer</th>
-            <th scope="col">RegDate</th>
+            <th scope="col">글 번호</th>
+            <th scope="col">글 제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일</th>
           </tr>
         </thead>
         <tbody>

@@ -3,7 +3,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
   <th:block th:fragment="content">
-    <h1 class="mt-4">GuestBook Modify Page</h1>
+    <h1 class="mt-4">글 수정 페이지</h1>
     <form action="/guestbook/modify" method="post">
       <input type="hidden" name="page" th:value="${requestDTO.page}">
     <div class="form-group">
@@ -24,11 +24,11 @@
     </div>
     <div class="form-group">
       <label>RegDate</label>
-      <input type="text" class="form-control" name="regDate"  th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+      <input type="text" class="form-control" name="regDate"  th:value="${dto.regDate}" readonly>
     </div>
     <div class="form-group">
       <label>ModDate</label>
-      <input type="text" class="form-control" name="modDate"  th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+      <input type="text" class="form-control" name="modDate"  th:value="${dto.modDate}" readonly>
     </div>
     </form>
     <button type="button" class="btn btn-primary modifyBtn">MODIFY</button>
