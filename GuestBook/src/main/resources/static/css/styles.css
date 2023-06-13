@@ -2500,6 +2500,7 @@ textarea.form-control-lg {
 }
 
 .input-group {
+  margin-right: 5rem;
   position: relative;
   display: flex;
   flex-wrap: wrap;
