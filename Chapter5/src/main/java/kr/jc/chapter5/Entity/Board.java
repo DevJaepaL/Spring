@@ -15,6 +15,6 @@ public class Board extends BaseEntity{
     private Long bno;       // PK
     private String title;   // 제목
     private String content; // 내용
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member writer; // 연관관계 지정.
 }
