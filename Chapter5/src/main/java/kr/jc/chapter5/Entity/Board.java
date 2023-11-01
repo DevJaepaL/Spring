@@ -17,4 +17,12 @@ public class Board extends BaseEntity{
     private String content; // 내용
     @ManyToOne (fetch = FetchType.LAZY) // FK 연관 관계 지정 -> 하나의 유저는 여러 개의 게시글을 가질 수 있다. (O)
     private Member writer;
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }
