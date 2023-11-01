@@ -16,7 +16,7 @@ ___
   + [정리 내용](https://github.com/DevJaepaL/SpringBoot/blob/master/3W-Study/README.md)
   + [ThymeLeaf](https://github.com/DevJaepaL/SpringBoot/tree/master/Chapter3)
  
-+ [Ch.4 - N:1 관계 📊](https://github.com/DevJaepaL/SpringBoot/tree/master/ch4)
++ [Ch.4 ~ 5 - N:1 관계 📊](https://github.com/DevJaepaL/SpringBoot/tree/master/Chapter5)
   ___
 
   > 🔔 참고 도서
