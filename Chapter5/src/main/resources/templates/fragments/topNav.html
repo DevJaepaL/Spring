@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="topNavFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <button class="btn btn-outline-success" id="sidebarToggle">메뉴</button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <li class="nav-item active"><a class="nav-link" href="#!">홈</a></li>
+                <!--       로그아웃 버튼은 일단 생략.       -->
+                <!--                <li class="nav-item"><a class="nav-link" href="#!">로그아웃</a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
 </html>
