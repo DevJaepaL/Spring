@@ -24,6 +24,7 @@
                         <option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">제목 + 내용 + 작성자</option>
                     </select>
                 </div>
+                <div></div>
                 <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
                 <div class="input-group-append" id="button-addon4">
                     <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
@@ -58,17 +59,21 @@
 
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item" th:if="${result.prev}">
-                <a class="page-link" th:href="@{/board/list(page=${result.start - 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+                <a class="page-link"
+                   th:href="@{/board/list(page=${result.start - 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
+                   tabindex="-1">Previous</a>
             </li>
 
             <li th:class=" 'page-item ' + ${result.page == page ? 'active' : ''} " th:each="page: ${result.pageList}">
-                <a class="page-link" th:href="@{/board/list(page=${page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
+                <a class="page-link"
+                   th:href="@{/board/list(page=${page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
                     [[${page}]]
                 </a>
             </li>
 
             <li class="page-item" th:if="${result.next}">
-                <a class="page-link" th:href="@{/board/list(page=${result.end + 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">Next</a>
+                <a class="page-link"
+                   th:href="@{/board/list(page=${result.end + 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">Next</a>
             </li>
         </ul>
 
@@ -99,7 +104,7 @@
 
             const $modal = $(".modal")
 
-            if(msg) {
+            if (msg) {
                 $('.modal').show();
             }
 
@@ -109,11 +114,11 @@
 
             var searchForm = $("#searchForm");
 
-            $('.btn-search').click(function(e) {
+            $('.btn-search').click(function (e) {
                 searchForm.submit();
             });
 
-            $('.btn-clear').click(function(e) {
+            $('.btn-clear').click(function (e) {
                 searchForm.empty().submit();
             });
         </script>

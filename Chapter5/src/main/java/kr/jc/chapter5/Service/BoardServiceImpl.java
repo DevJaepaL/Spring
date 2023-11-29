@@ -1,4 +1,4 @@
-package kr.jc.chapter5.ServiceTest;
+package kr.jc.chapter5.Service;
 
 import jakarta.transaction.Transactional;
 import kr.jc.chapter5.DTO.BoardDTO;

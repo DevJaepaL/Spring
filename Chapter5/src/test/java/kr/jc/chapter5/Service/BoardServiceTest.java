@@ -1,9 +1,8 @@
-package kr.jc.chapter5.ServiceTest;
+package kr.jc.chapter5.Service;
 
 import kr.jc.chapter5.DTO.BoardDTO;
 import kr.jc.chapter5.DTO.PageRequestDTO;
 import kr.jc.chapter5.DTO.PageResultDTO;
-import kr.jc.chapter5.Entity.Board;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,7 +45,7 @@ public class BoardServiceTest {
 
     @Test
     public void testDelete() {
-        Long bno = 11L;
+        Long bno = 3L;
         boardService.removeWithReplies(bno);
     }
 
